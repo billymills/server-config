@@ -47,7 +47,7 @@ class apache_setup {
   # start httpd to capture virtual host info
   service { 'httpd':
     ensure => 'running',
-    subscribe => File['httpd.conf'},
+    subscribe => File['httpd.conf'],
   }
 
 }  # end class apache_setup
@@ -83,20 +83,20 @@ class mysql_setup {
 
 } #end class mysql_setup
 
-class php {
-
-  package { 'php':
-    ensure => installed,
-  }
-
-}  #end class php 
+# class php {
+# 
+#  package { 'php':
+#    ensure => installed,
+#  }
+#
+# }  #end class php 
 
 # call the classes
 
-class { "php": }
+# class { "php": }
 class { "pear": }
 
-class { "apaceh_setup":
+class { "apache_setup":
   before => Class['mysql'],
 }
 
