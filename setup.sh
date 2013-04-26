@@ -16,10 +16,10 @@ rpm -ivh http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-6.n
 # yum install puppet-server
 
 # change this setting to allow network access
-sed -i 's/ONBOOT=no/ONBOOT=yes/g' /etc/sysconfig/network-scripts/ifcfg-eth0
+# sed -i 's/ONBOOT=no/ONBOOT=yes/g' /etc/sysconfig/network-scripts/ifcfg-eth0
 
 # reboot for network access
-shutdown -r now
+# shutdown -r now
 
 # install puppet
 yum install puppet
@@ -31,7 +31,11 @@ yum install vim-common vim-minimal vim-enhanced
 yum update
 
 # reboot for changes
-shutdown -r now
+# shutdown -r now
 
 # install vcsrepo module for cloning git repos
 puppet module install puppetlabs/vcsrepo
+puppet module install puppetlabs/mysql
+
+# you could actually run the puppet manifest from here
+# puppet apply webserver.pp

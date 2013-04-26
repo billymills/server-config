@@ -4,14 +4,18 @@ class php {
   }
 }
 
-pear::package { "PEAR": }
-pear::package { "Console_Table": }
+#pear::package { "PEAR": 
+#  before => Pear::Package["Console_Table"],
+#}
+#pear::package { "Console_Table": 
+#  before => Pear::Package["drush"], 
+#}
 
 # install drush
-pear::package { "drush":
-  version => "4.5.0",
-  repository => "pear.drush.org",
-}
+#pear::package { "drush":
+#  version => "4.5.0",
+#  repository => "pear.drush.org",
+#}
 
 class apache_setup {
   # first clone directory from github
@@ -94,15 +98,17 @@ class mysql_setup {
 # call the classes
 
 # class { "php": }
-class { "pear": }
+#class { "pear": }
 
 class { "apache_setup":
-  before => Class['mysql'],
+  before => Class['mysql_setup'],
 }
 
 class { "mysql_setup":
-  before => Class['php'],
+  #before => Class['php'],
 }
 
-class { "php": }
+class { "php": 
+  #before => Pear::Package['PEAR'],
+}
 
